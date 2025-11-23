@@ -159,6 +159,28 @@ export default{
 
         iniciarSesion(){
             console.log("El correo es: " + this.email)
+            let endpointURL = "/api/user/signin"
+            let payload = {
+                email: this.email,
+                password: this.password
+            }
+            this.$api.post(endpointURL, payload)
+            .then((response) => {
+                console.log("Respuesta exitosa: ", response.data)
+                this.$q.notify({
+                    type: 'positive',
+                    position: 'top',
+                    message: 'Inicio de sesión exitoso!'
+                })
+            }).catch((error) => {
+                console.error("Error en la solicitud: ", error)
+
+                this.$q.notify({
+                    type: 'negative',
+                    position: 'top',
+                    message: 'Error en el inicio de sesión. Por favor, verifica tus credenciales.'
+                })
+            })
         }
     }
 }
